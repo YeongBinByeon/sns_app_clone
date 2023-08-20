@@ -7,6 +7,7 @@ import com.example.sns.model.entity.UserEntity;
 import com.example.sns.repository.UserEntityRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.ThrowingSupplier;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -40,7 +41,7 @@ public class UserServiceTest{
         when(userEntityRepository.findByUserName(userName)).thenReturn(Optional.empty());
 
         // save() 어떤 파라메터로든 호출 시 사용자가 정의한 UserEntity return하도록 정의
-        when(userEntityRepository.save(Mockito.any())).thenReturn(UserEntityFixture.get(userName, password));
+        when(userEntityRepository.save(Mockito.any())).thenReturn(UserEntityFixture.get(userName, password, 1));
 
         Assertions.assertDoesNotThrow(()->userService.join(userName, password));
     }
@@ -51,7 +52,7 @@ public class UserServiceTest{
         String userName = "userName";
         String password = "password";
 
-        UserEntity fixture = UserEntityFixture.get(userName, password);
+        UserEntity fixture = UserEntityFixture.get(userName, password, 1);
 
         // 동일 userName 회원 존재함
         when(userEntityRepository.findByUserName(userName)).thenReturn(Optional.of(fixture));
@@ -69,7 +70,7 @@ public class UserServiceTest{
         String userName = "userName";
         String password = "password";
 
-        UserEntity fixture = UserEntityFixture.get(userName, password);
+        UserEntity fixture = UserEntityFixture.get(userName, password, 1);
 
         // 회원가입 되어 있을 때
         when(userEntityRepository.findByUserName(userName)).thenReturn(Optional.of(fixture));
@@ -86,7 +87,7 @@ public class UserServiceTest{
         String userName = "userName";
         String password = "password";
 
-        UserEntity fixture = UserEntityFixture.get(userName, password);
+        UserEntity fixture = UserEntityFixture.get(userName, password, 1);
 
         // 회원가입 되어 있을 때
         when(userEntityRepository.findByUserName(userName)).thenReturn(Optional.empty());
@@ -104,7 +105,7 @@ public class UserServiceTest{
         String userName = "userName";
         String password = "password";
 
-        UserEntity fixture = UserEntityFixture.get(userName, password);
+        UserEntity fixture = UserEntityFixture.get(userName, password, 1);
 
         // 회원가입 되어 있을 때
         when(userEntityRepository.findByUserName(userName)).thenReturn(Optional.of(fixture));
