@@ -41,12 +41,12 @@ public class UserEntity {
     @Column(name = "deleted_at")
     private Timestamp deletedAt;
 
-    //@PrePersist
+    @PrePersist
     void registeredAt(){
         this.registeredAt = Timestamp.from(Instant.now());
     }
 
-    //@PreUpdate
+    @PreUpdate
     void updatedAt(){
         this.updatedAt = Timestamp.from(Instant.now());
     }

@@ -29,7 +29,7 @@ public class PostEntity {
     private String body;
 
     @ManyToOne
-    @JoinColumn(name = "user_ixxd")
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
     @Column(name = "registered_at")
@@ -41,12 +41,12 @@ public class PostEntity {
     @Column(name = "deleted_at")
     private Timestamp deletedAt;
 
-    //@PrePersist
+    @PrePersist
     void registeredAt(){
         this.registeredAt = Timestamp.from(Instant.now());
     }
 
-    //@PreUpdate
+    @PreUpdate
     void updatedAt(){
         this.updatedAt = Timestamp.from(Instant.now());
     }
