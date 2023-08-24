@@ -5,7 +5,6 @@ import com.example.sns.controller.request.PostModifyRequest;
 import com.example.sns.controller.response.PostResponse;
 import com.example.sns.controller.response.Response;
 import com.example.sns.model.Post;
-import com.example.sns.model.entity.PostEntity;
 import com.example.sns.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -47,5 +46,17 @@ public class PostController {
     @GetMapping("/my")
     public Response<Page<PostResponse>> my(Pageable pageable, Authentication authentication){
         return Response.success(postService.my(authentication.getName(), pageable).map(PostResponse::fromPost));
+    }
+
+    @PostMapping("/{postId}/likes")
+    public Response<Void> like(@PathVariable Integer postId, Authentication authentication){
+        postService.like(postId, authentication.getName());
+        return Response.success();
+    }
+
+    @GetMapping("/{postId}/likes")
+    public Response<Integer> likeCount(@PathVariable Integer postId, Authentication authentication){
+        Integer count = postService.likeCount(postId);
+        return Response.success(count);
     }
 }
