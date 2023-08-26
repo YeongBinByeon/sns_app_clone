@@ -1,10 +1,13 @@
 package com.example.sns.controller;
 
+import com.example.sns.controller.request.PostCommentRequest;
 import com.example.sns.controller.request.PostCreateRequest;
 import com.example.sns.controller.request.PostModifyRequest;
+import com.example.sns.controller.response.CommentResponse;
 import com.example.sns.controller.response.PostResponse;
 import com.example.sns.controller.response.Response;
 import com.example.sns.model.Post;
+import com.example.sns.model.entity.PostEntity;
 import com.example.sns.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -59,4 +62,16 @@ public class PostController {
         Integer count = postService.likeCount(postId);
         return Response.success(count);
     }
+
+    @PostMapping("/{postId}/comments")
+    public Response<Void> comment(@PathVariable Integer postId, @RequestBody PostCommentRequest request, Authentication authentication){
+        postService.comment(postId, authentication.getName(), request.getComment());
+        return Response.success();
+    }
+
+    @GetMapping("/{postId}/comments")
+    public Response<Page<CommentResponse>> commentList(@PathVariable Integer postId, Pageable pageable, Authentication authentication){
+        return Response.success(postService.getComments(postId, pageable).map(CommentResponse::fromComment));
+    }
+
 }
