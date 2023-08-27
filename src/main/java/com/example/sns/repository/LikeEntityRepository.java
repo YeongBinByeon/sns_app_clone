@@ -15,5 +15,5 @@ public interface LikeEntityRepository extends JpaRepository<LikeEntity, Integer>
     Optional<LikeEntity> findByUserAndPost(UserEntity user, PostEntity post);
 
     @Query("select count(*) from LikeEntity l where l.post = :entity")
-    Integer countByPost(@Param("entity") PostEntity post);
+    long countByPost(@Param("entity") PostEntity post);
 }
