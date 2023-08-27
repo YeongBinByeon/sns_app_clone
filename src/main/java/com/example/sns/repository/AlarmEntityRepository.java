@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
 public interface AlarmEntityRepository extends JpaRepository<AlarmEntity, Integer> {
 
     @Query("select a from AlarmEntity a where a.user = :entity")
-    Page<AlarmEntity> findAllByUser(@Param("entity") UserEntity user, Pageable pageable);
+    Page<AlarmEntity> findAllByUserId(@Param("entity") Integer userId, Pageable pageable);
 
 }

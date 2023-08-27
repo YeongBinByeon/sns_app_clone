@@ -64,8 +64,9 @@ public class UserService {
         return token;
     }
 
-    public Page<Alarm> alarmList(String userName, Pageable pageable){
-        UserEntity userEntity = userEntityRepository.findByUserName(userName).orElseThrow(()-> new SnsApplicationException(ErrorCode.USER_NOT_FOUND, String.format("%s not founded", userName)));
-        return alarmEntityRepository.findAllByUser(userEntity, pageable).map(Alarm::fromEntity);
+    public Page<Alarm> alarmList(Integer userId, Pageable pageable){
+        //JWT 필터에서 가져온 User 정보에서 userId를 사용해서 기존에 User 존재하는지 체크하던 아래 로직이 필요 없게 됨
+        //UserEntity userEntity = userEntityRepository.findByUserName(userName).orElseThrow(()-> new SnsApplicationException(ErrorCode.USER_NOT_FOUND, String.format("%s not founded", userName)));
+        return alarmEntityRepository.findAllByUserId(userId, pageable).map(Alarm::fromEntity);
     }
 }
