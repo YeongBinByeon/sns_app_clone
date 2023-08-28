@@ -113,6 +113,10 @@ public class UserControllerTest {
                 .andExpect(status().isUnauthorized());
     }
 
+    // 대규모 트래픽 고려해보기 4-01. 강의 내용에서 UserController 변경 사항 적용 이후 아래 문제 발생한 것으로 추정
+    // 근데 일단 내버려 둠
+    // / Error occurs com.example.sns.exception.SnsApplicationException: Internal server error. Casting to User class failed
+
     @Test
     @WithMockUser
     void 알람기능() throws Exception{

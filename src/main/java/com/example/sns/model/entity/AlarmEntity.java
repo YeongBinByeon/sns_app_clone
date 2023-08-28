@@ -16,12 +16,12 @@ import java.time.Instant;
 import java.util.Map;
 
 @Entity
-@Table(name = "\"alarm\"", indexes = {
+@Table(name = "alarm", indexes = {
         @Index(name = "user_id_idx", columnList = "user_id")
 })
 @Getter
 @Setter
-@SQLDelete(sql = "UPDATE \"alarm\" SET deleted_at = NOW() where id=?")
+@SQLDelete(sql = "UPDATE alarm SET deleted_at = NOW() where id=?")
 @Where(clause = "deleted_at is NULL")
 @TypeDef(name = "json", typeClass = JsonType.class)
 public class AlarmEntity {
